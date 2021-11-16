@@ -16,14 +16,19 @@ import { useNavigate } from "react-router-dom";
 const Routes = [
   {
     routeName: "Users",
-    route: "/users",
+    route: "/",
+    Icon: AccountCircleIcon,
+  },
+  {
+    routeName: "Products",
+    route: "/products",
     Icon: AccountCircleIcon,
   },
 ];
 
 const SideBar = ({ children, drawerWidth }) => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -37,7 +42,7 @@ const SideBar = ({ children, drawerWidth }) => {
             button
             key={route.routeName}
             onClick={() => {
-              navigate("/");
+              navigate(route.route);
             }}
           >
             <ListItemIcon>
@@ -53,9 +58,10 @@ const SideBar = ({ children, drawerWidth }) => {
   return (
     <>
       <AppBar
-        color="transparent"
         position="fixed"
         sx={{
+          bgcolor: "#fff",
+          color: "#333",
           width: { md: `calc(100% - ${drawerWidth}px)` },
           ml: { md: `${drawerWidth}px` },
         }}

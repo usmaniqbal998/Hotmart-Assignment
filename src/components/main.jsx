@@ -4,6 +4,7 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Users from "./Users";
 import Products from "./Products";
+import ProductDetails from "./Products/ProductDetails";
 
 const Main = ({ children, drawerWidth }) => {
   return (
@@ -19,6 +20,7 @@ const Main = ({ children, drawerWidth }) => {
       <Routes>
         <Route path="/" element={<Users />} />
         <Route path="products" element={<Products />} />
+        <Route path="products/:productId" element={<ProductDetails />} />
       </Routes>
     </Box>
   );

@@ -3,12 +3,16 @@ import { Box } from "@mui/system";
 import React, { useState } from "react";
 import { getUsers, getProducts } from "../../api";
 import Loader from "../loader";
+import ProductCard from "../Products/ProductCard";
 import UserCard from "./UserCard";
+import { useNavigate } from "react-router";
+
 const Users = () => {
   const [users, setUsers] = useState([]);
   const [products, setProducts] = useState([]);
   const [selectedUser, setSelectedUser] = useState("");
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   React.useEffect(() => {
     setLoading(true);
@@ -34,6 +38,22 @@ const Users = () => {
     else return [];
   };
 
+  const getSelectedUserName = () => {
+    const user = users.find((el) => el.id === selectedUser);
+    if (user) {
+      return user.name;
+    }
+    return "";
+  };
+
+  const userSelectedCallback = (id) => {
+    setSelectedUser(id);
+  };
+
+  const onProductClickedCallback = (id) => {
+    navigate(`${id}`);
+  };
+
   return (
     <>
       <Typography variant="h4" sx={{ mb: 4, color: "#333" }}>
@@ -57,10 +77,42 @@ const Users = () => {
                     username={user.username}
                     email={user.email}
                     active={selectedUser === user.id}
+                    onUserSelected={userSelectedCallback}
                   />
                 </Box>
               </Grid>
             ))}
+      </Grid>
+
+      <Typography variant="h4" sx={{ mt: 4, mb: 4, color: "#333" }}>
+        Products by{" "}
+        <span style={{ textDecoration: "underline" }}>
+          {getSelectedUserName()}
+        </span>
+      </Typography>
+
+      <Grid container spacing={2}>
+        {getProductsById(selectedUser).map((product) => (
+          <Grid
+            alignItems="stretch"
+            key={product.id}
+            item
+            xs={12}
+            sm={12}
+            md={6}
+            lg={4}
+          >
+            <Box>
+              <ProductCard
+                id={product.id}
+                title={product.title}
+                body={product.body}
+                userId={product.userId}
+                onProductClicked={onProductClickedCallback}
+              />
+            </Box>
+          </Grid>
+        ))}
       </Grid>
     </>
   );

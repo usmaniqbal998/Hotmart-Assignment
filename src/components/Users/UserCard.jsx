@@ -1,16 +1,24 @@
 import { Avatar, Card, CardHeader } from "@mui/material";
-import { Box } from "@mui/system";
 import React from "react";
 import { styled } from "@mui/material/styles";
 import RedeemIcon from "@mui/icons-material/Redeem";
 
-const UserCard = ({ name, username, email, id, products, active }) => {
+const UserCard = ({
+  name,
+  username,
+  email,
+  id,
+  products,
+  active,
+  onUserSelected,
+}) => {
   return (
     <Ucard
       sx={{
         "&:hover": { cursor: "pointer" },
       }}
       active={active}
+      onClick={() => onUserSelected(id)}
     >
       <CardHeader
         avatar={
