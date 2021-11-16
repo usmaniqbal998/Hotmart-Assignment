@@ -51,7 +51,7 @@ const Users = () => {
   };
 
   const onProductClickedCallback = (id) => {
-    navigate(`${id}`);
+    navigate(`/products/${id}`);
   };
 
   return (
